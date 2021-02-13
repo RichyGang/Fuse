@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}RBT ressources{% endblock %}
+
+{% block body %}
+
+<div class="text-center mt-3">
+    <h1>Toutes les ressources</h1>
+
+    {% for message in app.flashes('success') %}
+
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+
+    <br>
+
+{#    <div class="row">#}
+    <div class="card-group justify-content-lg-center">
+        <div class="col-md-3 text-center">
+            <a href="/ressources/new" class="btn btn-primary">Nouvelle ressource</a>
+        </div>
+        <div class="col-md-4 text-center">
+        <a href="/admin/ressources" class="btn btn-warning">Éditer</a>
+        </div>
+    </div>
+
+    <div class="row text-center">
+    </div>
+{#    </div>#}
+    <br>
+    <br>
+
+
+    <div class="row flex">
+
+    {% for ressource in ressources %}
+        <div class="col-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ path('ressource.show', {id: ressource.id, slug: ressource.slug}) }}">{{ ressource.id }}</a>
+                    </h5>
+
+                    {#                            <p class="card-footer"> {% if parent_name[ressource.id] is defined and parent_name[ressource.id] != null %}{{ parent_name[ressource.id] }} {% endif %}</p>#}
+                    <p class="card-text">{{ ressource.description }} </p>
+
+{#                    <p class="card-footer">#}
+{#                        {% if ressource.parent != null%}#}
+{#                            {{ ressource.parent.name }}#}
+{#                        {% endif %}#}
+{#                    </p>#}
+
+
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

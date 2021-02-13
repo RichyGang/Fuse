@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle proposition{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 text-center">
+        <h1>Nouvelle proposition</h1>
+
+        {{ form_start(form) }}
+
+        <br>
+        <br>
+
+{#        <div class="row">#}
+{#            <div class="col-auto">{{ form_row(form.need_or_ask) }}</div>#}
+{#            <div class="col-auto">{{ form_row(form.quantity) }}</div>#}
+{#            <div class="col-md-3">{{ form_row(form.ressource) }}#}
+{#            <br>#}
+{#                <div class="text-center">#}
+{#                    doesn't exist ? <a href="/ressources/new  " class="btn btn-link">ajouter ressource</a>#}
+{#                </div>#}
+{#                <input type="submit" name="new_ressource_button" value="Update" />#}
+
+{#            </div>#}
+{#            <div class="col-md-3 text-center">{{ form_row(form.location) }}</div>#}
+{#        </div>#}
+
+        <input type="submit" name="submit_button" value="BOUM" class="btn btn-dark" />
+
+
+        {{ form_end(form) }}
+
+
+
+
+
+{#        <table class="table table-striped">#}
+{#            <thead>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#            <tr>#}
+{#                <th>{{ form_start(form) }}</th>#}
+{#                <th>{{ form_row(form.ressource) }}</th>#}
+{#                <th>{{ form_row(form.quantity) }}</th>#}
+{#                <th>{{ form_row(form.unity) }}</th>#}
+{#                <th>{{ form_row(form.location) }}</th>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>{{ form_row(form.need_or_ask) }}</th>#}
+{#                <th>{{ form_row(form.deadline) }}</th>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>{{ form_start(form.need_or_ask) }}</th>#}
+{#            </tr>#}
+{#            </tbody>#}
+
+{#        {{ form_start(form) }}#}
+
+
+{#        <div class="col-md-4">#}
+{#            {{ form_row(form.location) }}#}
+{#        </div>#}
+{#        <div class="col-md-4">#}
+{#            {{ form_row(form.quantity) }}#}
+{#        </div>#}
+{#        <div class="col-md-4">#}
+{#            {{ form_row(form.unity) }}#}
+{#        </div>#}
+
+{#        {{ form_rest(form) }}#}
+        {#        form_widget c'est pour afficher le formulaire avec en parametre le formulaire#}
+{#        {{ form_end(form) }}#}
+
+
+
+    </div>
+
+{% endblock %}

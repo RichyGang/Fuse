@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Éditer la ressource' %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Éditer la ressource</h1>
+
+        {{ form_start(form) }}
+
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-md-4 text-center">{{ form_row(form.parent) }}</div>
+            <div class="col-md-4 text-center">{{ form_row(form.name) }}</div>
+            <div class="col-md-4 text-center">{{ form_row(form.description) }}</div>
+        </div>
+
+        <button class="btn-primary mt-4">Boudoum</button>
+
+
+        {{ form_end(form) }}
+{#        {{ form(form) }}#}
+{#        {% include 'admin/_form.html.twig' with {'foo': 'bar'} %}#}
+
+{#        {% set vars = {'foo': 'bar'} %}#}
+{#        {% include 'admin/_form.html.twig' with vars %}#}
+
+
+        {#        {% include 'admin/ressources/_form.html.twig'%} {{form: form, button: 'Éditer'}}#}
+    </div>
+
+{% endblock %}

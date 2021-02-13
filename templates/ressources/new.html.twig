@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle ressource{% endblock %}
+
+{% block body %}
+    <div class="container mt-5 text-center">
+        <h1>Nouvelle ressource</h1>
+        {{ form_start(form_ress) }}
+
+        <br>
+        <br>
+
+{#        <div class="row flex">#}
+{#            <div class="col-md-4 text-center">{{ form_row(form.parent) }}</div>#}
+{#            <div class="col-md-4 text-center">{{ form_row(form.category) }}</div>#}
+{#            <div class="col-md-4 text-center">{{ form_row(form.name) }}</div>#}
+{#            <div class="col-md-4 text-center">{{ form_row(form.description) }}</div>#}
+{#        </div>#}
+
+        <input type="submit" name="submit_button" value="BOUM" class="btn btn-dark" />
+
+
+        {{ form_end(form_ress) }}
+
+
+
+        {#        ca est équivalent à l'affichage brut#}
+
+{#        {{ form_start(form) }}#}
+{#        <div class="col-md-4">#}
+{#            {{ form_row(form.name) }}#}
+{#        </div>#}
+{#        <div class="col-md-4">#}
+{#            {{ form_row(form.email) }}#}
+{#        </div>#}
+{#        <div class="col-md-4">#}
+{#            {{ form_row(form.password) }}#}
+{#        </div>#}
+
+{#        {{ form_rest(form) }}#}
+{#                form_widget c'est pour afficher le formulaire avec en parametre le formulaire#}
+{#        <button class="btn-primary mt-4">Boudoum</button>#}
+{#        {{ form_end(form) }}#}
+
+
+    </div>
+
+{#    <div class="container mt-5 text-center">#}
+{#        <h1>Nouvelle ressource2</h1>#}
+{#        {{ form_start(form_attr) }}#}
+
+{#        <input type="submit" name="submit_button" value="BOUMDOUM" class="btn btn-dark" />#}
+
+{#        {{ form_end(form_attr) }}#}
+{#    </div>#}
+
+{% endblock %}

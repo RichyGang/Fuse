@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fuse - Propositions{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-5">
+
+        <h1>Toutes les propositions</h1>
+
+        {% for message in app.flashes('success') %}
+
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+        {% if proposals %}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Ressource</th>
+                    <th>Quantité</th>
+                    <th>Unité</th>
+                    <th>Localisation</th>
+                    <th>offre/demande</th>
+                    <th>Auteur</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {# le corps du tableau #}
+
+                {% for proposal in proposals %}
+                    <tr>
+                        <td>{{ proposal.ressource.name }}</td>
+                        <td>{{ proposal.quantity }}</td>
+                        <td>{{ proposal.unity }}</td>
+                        <td>{{ proposal.location }}</td>
+                        <td>{% if proposal.needorask==1 %}offre {% else %} demande{% endif %}</td>
+                        <td>{{ proposal.user.username }}</td>
+                        <td>
+                            {# <a href="{{ path('admin.ressources.edit', {id: ressource.id}) }}" class="btn btn-secondary">Éditer</a> #}
+                            {% if proposal.needorask==1 %} <a href="{{ path('proposal.add', {id: proposal.id}) }}" class="btn btn-secondary">Demander</a>{% else %} <a
+                                    href="{{ path('proposal.add', {id: proposal.id}) }}" class="btn btn-secondary">Offrir</a>{% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        {% endif %}
+
+        <br>
+
+        {% if proposals is empty %}
+            <div class="text-center">
+                <p>Il n'y a pas de propositions pour l'instant :(</p>
+            </div>
+        {% endif %}
+
+        <br>
+
+        <div class="text-center">
+            <a href="/proposals/new" class="btn btn-secondary" >Nouvelle proposition</a>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{# <div class="row flex"> #}
+{# {% for proposal in proposals %} #}
+{# <div class="col-3"> #}
+{# <div class="card-body"> #}
+{# <div class="card-title"> {{ proposal.ressource.name }}</div> #}
+{# <div class="card-body"> {{ proposal.quantity }}</div> #}
+{# <div class="card-body"> {{ proposal.unity }}</div> #}
+{# </div> #}
+{# </div> #}
+{# {% endfor %} #}
+{# </div> #}

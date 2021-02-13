@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="jumbotron text.center">
+        <div class="text-center">
+            <h1>FUSE</h1>
+            <p>Répertoire de ressources et plateforme de transfert.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2> Les dernieres ressources </h2>
+        <div class="row flex">
+            {% for ressource in ressources %}
+                <div class="col-3">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src="/pictures/{{ ressource.ressourcePicture }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                {% for r in ressource.ressourceAttribute %}
+                                    <p> {{ r.value }}{{ ressource.category.categoryAttributes[loop.index - 1].unity }}  </p>
+                                {% endfor %}
+                            </h5>
+{#                       )#}
+                            <p class="card-text">{{ ressource.description }}</p>
+                            <a href="#" class="btn btn-primary">Offrir</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
