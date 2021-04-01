@@ -1,60 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}FUSE--{% endblock %}
+{% block title %}Fuse | {{ressource.id}} {% endblock %}
 
 {% block body %}
 <div class="container mt-4">
     {# mt = marge in top = décalage par rapport à la nav bar #}
     <div class="row">
         <div class="col-md-8">
-            {# ca sera pour les images #}
-
+            <img class="card-img-top" src="/pictures/{{ ressource.ressourcePicture }}" alt="Card image cap">
         </div>
         <div class="col-md-4">
-            <div class="row">
-                <div class="col-auto">Enfants</div>
-                {% for ress in ressources %}
-                    {% if ress.parent == ressource %}
-                        <div class="col-auto">
-                            <a href="{{ path('ressource.show', {id: ress.id, slug: ressource.slug}) }}">
-                                {{ ress.name }}
-                            </a>
-                        </div>
+            {{ ressource.category.mother }} > {{ ressource.category }}
 
 
-                    {% endif %}
-                {% endfor %}
-            </div>
 
             <br>
             <br>
             <br>
 
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-auto">
                     {# La ca va etre utile pour les proposals ou on va lister les différents attribus #}
                     <table class="table table-striped">
+                        {% for ra in ressource.ressourceAttribute %}
+{#                            <div class="col-auto">#}
+{#                                #}
+{#                            </div>#}
                         <tr>
                             <td>
-                                Attribus 1
+                                {{ ressource.category.categoryAttributes[loop.index - 1].name }}
                             </td>
                             <td>
                                 {# (dans le cas d'une proposal) {{ proposal.attr1 }} #}
-                                somthing1
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Attribus 2
+                                {{ ra.value }}
                             </td>
                             <td>
-                                {# (dans le cas d'une proposal) {{ proposal.attr1 }} #}
-                                somthing2
+                                {{ ressource.category.categoryAttributes[loop.index - 1].unity }}
                             </td>
+
                         </tr>
+                        {% endfor %}
+
                     </table>
                 </div>
-                <div class="col-md-4"
             </div>
 
         </div>

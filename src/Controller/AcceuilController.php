@@ -18,8 +18,10 @@ class AcceuilController extends AbstractController
     {
         $ressources = $repository->findAll();
 
+
+
 //        $ressources_id = $repository->find()->getParent()->getName();
-        dump($ressources);
+//        dump($ressources);
 //        dump($ressources_id);
 //        $ressources_parent =;
 //        $ressource_parents = $this->repository->findOneBy(['parent' => $ressources ])

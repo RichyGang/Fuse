@@ -20,7 +20,7 @@ class Category
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=Category::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Category::class)
      * @ORM\JoinColumn(nullable=true)
      */
     private $mother;
@@ -145,5 +145,6 @@ class Category
     {
         return $this->name;
     }
+
 
 }

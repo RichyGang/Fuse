@@ -1,0 +1,50 @@
+body{
+    background-color: #ebebeb;
+}
+
+
+.btn-login-page {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.badge-admin {
+    background-color: teal;
+    margin-top: 10px;
+}
+
+.content-admin-dashboard {
+    margin-top: 30px;
+}
+
+.block-list-item {
+}
+
+.item {
+    border-top: solid 1px #d9d9d9;
+}
+
+.col-img img {
+    width: 100%;
+    height: auto;
+    border-radius: 1.67%;
+    margin: 20px;
+}
+
+.col-img-show img {
+    width: 500%;
+    height: auto;
+    border-radius: 1.67%;
+    /*padding: 20px;*/
+    /*margin: 20px;*/
+    margin-top: 20px;
+}
+
+/*:hover {*/
+/*    background-color: #ebebeb;*/
+/*}*/
+
+p {
+    margin-top: 51px;
+    padding: 20px;
+}

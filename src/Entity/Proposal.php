@@ -159,8 +159,6 @@ class Proposal
     }
 
 
-
-
     public function getNeedOrAsk(): ?bool
     {
         return $this->need_or_ask;

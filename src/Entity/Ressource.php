@@ -169,6 +169,7 @@ class Ressource
         return $this;
     }
 
+
 //    public function __toString() {
 //        if(is_null($this->author)) {
 //            return 'NULL';

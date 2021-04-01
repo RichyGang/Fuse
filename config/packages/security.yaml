@@ -29,5 +29,5 @@ security:
 
   access_control:
     - { path: '^/admin', roles: ROLE_ADMIN }
-    - { path: '^/proposals/new', roles: ROLE_USER }
+    - { path: '^/proposals/add', roles: ROLE_USER }
     - { path: '^/ressources/new', roles: ROLE_USER }

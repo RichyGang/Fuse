@@ -31,6 +31,15 @@ class ProposalRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+//    public function findProposalsByCategory($id)
+//    {
+//        return $this->createQueryBuilder('p')
+//            ->andWhere('p.ressource.category = :val')
+//            ->setParameter('val', $id)
+//            ->getQuery()
+//            ->getResult();
+//    }
+
     // /**
     //  * @return Proposal[] Returns an array of Proposal objects
     //  */

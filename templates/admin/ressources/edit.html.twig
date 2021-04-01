@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Éditer la ressource' %}
+{% block title 'Fuse | éditer ressource' %}
 
 {% block body %}
     <div class="container mt-4">
@@ -10,11 +10,22 @@
 
         <br>
         <br>
+        {{ form_row(form.category) }}
+        {% if form.category != null %}
+            {% for ra in ressource.ressourceAttribute %}
+                            {{ ra.value }} {{ ressource.category.categoryAttributes[loop.index - 1].unity }}
+{#                            {{ form_row(ressource.category.categoryAttributes[loop.index - 1].unity) }}#}
+            {% endfor %}
+        {% endif %}
+
+
+
 
         <div class="row">
-            <div class="col-md-4 text-center">{{ form_row(form.parent) }}</div>
-            <div class="col-md-4 text-center">{{ form_row(form.name) }}</div>
-            <div class="col-md-4 text-center">{{ form_row(form.description) }}</div>
+
+{#            <div class="col-md-4 text-center">{{ form_row(form.parent) }}</div>#}
+{#            <div class="col-md-4 text-center">{{ form_row(form.name) }}</div>#}
+{#            <div class="col-md-4 text-center">{{ form_row(form.description) }}</div>#}
         </div>
 
         <button class="btn-primary mt-4">Boudoum</button>

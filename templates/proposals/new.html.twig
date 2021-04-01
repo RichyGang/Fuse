@@ -1,78 +1,222 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvelle proposition{% endblock %}
+{% block title %}Fuse | propositions{% endblock %}
 
 {% block body %}
-    <div class="container mt-5 text-center">
-        <h1>Nouvelle proposition</h1>
 
-        {{ form_start(form) }}
+<div class="container mt-5">
+    <h2>Nouvelle proposition</h2>
+</div>
 
-        <br>
-        <br>
+    {% if category == null and ressource == null %}
 
-{#        <div class="row">#}
-{#            <div class="col-auto">{{ form_row(form.need_or_ask) }}</div>#}
-{#            <div class="col-auto">{{ form_row(form.quantity) }}</div>#}
-{#            <div class="col-md-3">{{ form_row(form.ressource) }}#}
-{#            <br>#}
-{#                <div class="text-center">#}
-{#                    doesn't exist ? <a href="/ressources/new  " class="btn btn-link">ajouter ressource</a>#}
-{#                </div>#}
-{#                <input type="submit" name="new_ressource_button" value="Update" />#}
 
+
+        {#            CHOIX DE LA CATEGORIE#}
+        <div class="container mt-auto">
+
+            <div class="container mt-5 text-center">
+                <h4>Choix de la catégorie</h4>
+
+                <label for="categories"></label>
+                <form method="get">
+                    <select name="category" id="category">
+                        {% for category in categories %}
+                            <option value="{{ category }}">{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+        {#            ------------#}
+
+        {#        SI ON A LA CATÉGORIE#}
+    {% elseif category != null %}
+
+        {#        AFFICHAGE CATÉGORIE#}
+        <div class="container mt-3">
+            <h1>{{ category.name }}</h1>
+        </div>
+
+        {% if category != null and ressources == null %}
+            <br>
+            Aucune ressource trouvée pour cette catégorie : <a href="{{ path('ressources.new') }}">Ajouter</a>
+            <br>
+        {% else %}
+
+            {#            AFFICHAGE DES RESSOURCES DE CETTE CATÉGORIE#}
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    {% for ca in category.categoryAttributes %}
+                        <th> {{ ca.name }} </th>
+                    {% endfor %}
+                    <th> x </th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {# le corps du tableau #}
+                <br>
+                {% if ressources != null %}
+                    {% for ressource in ressources %}
+                        <tr>
+                            {% for ra in ressource.ressourceAttribute %}
+                                <td> {{ ra }} </td>
+                            {% endfor %}
+                            <td>
+                                <a href="{{ path('proposal.add', {ressource_id: ressource.id}) }}" class="href">Choisir</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        {% endif %}
+    {% endif %}
+
+    {#    SI ON A LA RESSOURCE#}
+    {% if ressource != null %}
+        {#        AFFICHAGE RESSOURCE#}
+
+
+        <div class="content-admin-dashboard">
+            <div class="container">
+                <h1>Nouvelle proposition</h1>
+            </div>
+            <div class="container content-admin-list  mt-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2>{{ ressource.category }}</h2>
+                        {% for ra in ressource.ressourceAttribute %}
+                            {{ ressource.category.categoryAttributes[loop.index - 1].name }} :
+                            <b>
+                                {{ ra.value }}
+                            </b>
+                            {{ ressource.category.categoryAttributes[loop.index - 1].unity }}
+                        {% endfor %}
+                        ({{ ressource.description }})
+                        <div class="col-md-2 col-img-show">
+                            <img class="center" src="/pictures/{{ ressource.ressourcePicture }}" alt="Card image cap">
+                        </div>
+                    </div>
+{#                    2EME COLONNE#}
+                    <div class="col-md-4">
+                        {#                DEBUT FORM#}
+                        {{ form_start(form) }}
+
+                        <div class="col-md-auto">
+                            {{ form_row(form.need_or_ask) }}
+                        </div>
+                        <div class="col-md-3">
+                            {{ form_row(form.quantity) }}
+                        </div>
+                    </div>
+
+{#                    3EME COLONNE#}
+                    <div class="col-md-auto">
+                        <div class="col-md-auto">
+                            {{ form_row(form.location) }}
+                        </div>
+                        <div class="row">{{ form_row(form.proposalPicture) }}</div>
+                        {{ form_end(form) }}
+
+                        <input type="submit" name="submit_button" value="BOUM" class="btn btn-dark" />
+
+                        {#                FIN FORM#}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="container mt-5">
+{#            <h1>#}
+{#                {{ ressource.category }}#}
+{#            </h1>#}
+{#            {% for ra in ressource.ressourceAttribute %}#}
+{#                {{ ressource.category.categoryAttributes[loop.index - 1].name }} :#}
+{#                <b>#}
+{#                    {{ ra.value }}#}
+{#                </b>#}
+{#                {{ ressource.category.categoryAttributes[loop.index - 1].unity }}#}
+{#            {% endfor %}#}
+{#            ({{ ressource.description }})#}
+{#            <div class="col-md-2 col-img">#}
+{#                <img class="center" src="/pictures/{{ ressource.ressourcePicture }}" alt="Card image cap">#}
 {#            </div>#}
-{#            <div class="col-md-3 text-center">{{ form_row(form.location) }}</div>#}
-{#        </div>#}
 
-        <input type="submit" name="submit_button" value="BOUM" class="btn btn-dark" />
+        </div>
 
-
-        {{ form_end(form) }}
+        <div class="container mt-5">
+            <div class="row flex">
 
 
 
-
-
-{#        <table class="table table-striped">#}
-{#            <thead>#}
-{#            </thead>#}
-{#            <tbody>#}
-{#            <tr>#}
-{#                <th>{{ form_start(form) }}</th>#}
-{#                <th>{{ form_row(form.ressource) }}</th>#}
-{#                <th>{{ form_row(form.quantity) }}</th>#}
-{#                <th>{{ form_row(form.unity) }}</th>#}
-{#                <th>{{ form_row(form.location) }}</th>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>{{ form_row(form.need_or_ask) }}</th>#}
-{#                <th>{{ form_row(form.deadline) }}</th>#}
-{#            </tr>#}
-{#            <tr>#}
-{#                <th>{{ form_start(form.need_or_ask) }}</th>#}
-{#            </tr>#}
-{#            </tbody>#}
-
-{#        {{ form_start(form) }}#}
-
-
-{#        <div class="col-md-4">#}
-{#            {{ form_row(form.location) }}#}
-{#        </div>#}
-{#        <div class="col-md-4">#}
-{#            {{ form_row(form.quantity) }}#}
-{#        </div>#}
-{#        <div class="col-md-4">#}
-{#            {{ form_row(form.unity) }}#}
-{#        </div>#}
-
-{#        {{ form_rest(form) }}#}
-        {#        form_widget c'est pour afficher le formulaire avec en parametre le formulaire#}
-{#        {{ form_end(form) }}#}
+            </div>
+        </div>
 
 
 
-    </div>
+        {#        AFFICHAGE DU FORMULAIRE#}
+
+    {% endif %}
+
+    {#    <br>#}
+    {#    <br>#}
+
+    {#    <input type="radio" id="0" name="needoffer" value="need">#}
+    {#    <label for="need">demander</label><br>#}
+    {#    <input type="radio" id="1" name="needoffer" value="offer">#}
+    {#    <label for="offer">offrir</label><br>#}
+
+    {#    {{ ressource.category }}#}
+    {#    {% for ra in ressource.ressourceAttribute %}#}
+    {#        {{ ra }}#}
+    {#    {% endfor %}#}
+    {#    <div class="container">#}
+    {#        <div class="card" style="width: 18rem;">#}
+    {#            <div class="card-header">#}
+    {#                {{ ressource.category }}#}
+    {#            </div>#}
+    {#            <img src="/pictures/{{ ressource.ressourcePicture }}" alt="w3-round" style="width:100%">#}
+    {#            <div class="card-body">#}
+    {#                <h5 class="card-title">#}
+    {#                    <div class="col mt-auto">#}
+    {#                        {% for ra in ressource.ressourceAttribute %}#}
+    {#                            {{ ra.value }} {{ ressource.category.categoryAttributes[loop.index - 1].unity }}#}
+    {#                        {% endfor %}#}
+    {#                    </div>#}
+    {#                </h5>#}
+    {#                <p class="card-text">{{ ressource.description }}</p>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#        <div class="col">#}
+
+    {#        </div>#}
+    {#    </div>#}
+
+
+
+
+    {#    {{ form_start(form) }}#}
+
+    {#    <div class="text-center">#}
+    {#        <div class="row">#}
+    {#            <div class="col-auto text-center">{{ form_row(form.need_or_ask) }}</div>#}
+    {#            <div class="col-auto text-center">{{ form_row(form.quantity) }}</div>#}
+    {#            <div class="col-auto text-center">{{ form_row(form.ressource) }}#}
+    {#            </div>#}
+    {#            <div class="col-md-2 text-center">{{ form_row(form.location) }}</div>#}
+    {#            <div class="col-md-2">#}
+    {#                <button class="btn-primary mt-4">Boudoum</button>#}
+    {#            </div>#}
+    {#        </div>#}
+
+    {#    </div>#}
+
+    {#    {{ form_end(form) }}#}
+
 
 {% endblock %}

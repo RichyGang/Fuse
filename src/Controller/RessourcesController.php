@@ -137,16 +137,14 @@ class RessourcesController extends AbstractController
     /**
      * @Route ("/ressources/new", name="ressources.new")
      * @param Request $request
-     * @param CategoryRepository $categoryRepository
-     * @param CategoryAttributeRepository $categoryAttributeRepository
      * @return Response
      */
-    public function new(Request $request, CategoryRepository $categoryRepository, CategoryAttributeRepository $categoryAttributeRepository):Response
+    public function new(Request $request):Response
     {
+        $category = null;
         $ressource = new Ressource();
         $form_ress = $this->createForm(RessourceType::class);
         $form_ress->handleRequest($request);
-        dump($request);
 
 //        $form_attr = $this->createForm(RessourceAttributeType::class);
 
@@ -154,49 +152,50 @@ class RessourcesController extends AbstractController
 
             $em = $this->getDoctrine()->getManager();
 
-            // C'EST ICI QUE JE RECUPERE LES CHAMPS QUI NE SONT PAS DE RESSOURCE, POUR LES METTRE DANS
-            // RESSOUCEATTRIBUTE
-
+            // Récupération des retours du form qui sont mappés dans Ressource
             $ressource = $form_ress->getData();
 
-
-            //recupere tous les categ attr avec idCategg
+            // Récupération de la category rentrée dans le form
             $category = $form_ress->get('category')->getData();
 
-            // pour chaque on va creer une ressource-attr et lier la valeur de l'input avec l'id categ attr correspondant
-
             if($ressource->getCategory()){
-                // boucle sur ce resultat
 
+                // Pour chaque attribut de la catégorie on va creer une ressource-attr et lier la valeur de l'input avec l'id categ attr correspondant
                 foreach($category->getCategoryAttributes() as $cle => $valeur){
                     $value_attribute = $form_ress->get('ressource_attribute'.$cle)->getData();
 
+                    // Condition pour ne pas executer cette commande sans que les valeurs desattributs ne soient submit
                     if ($value_attribute){
+
                         $ressource_attribute = new RessourceAttribute();
                         $ressource_attribute->setCategoryAttribute($valeur);
                         $ressource_attribute->setValue($value_attribute);
+
+                        // Par contre on lie la ressource et la ressource attr en l'ajoutant à l'objet Ressource
                         $ressource->addRessourceAttribute($ressource_attribute);
+
                         $em->persist($ressource_attribute);
                         $em->flush();
                     }
-
                 }
             }
 
             if ($ressource->getDescription()){
+
+                // AJOUT DE LA PHOTO DE LA RESSOURCE
                 /** @var UploadedFile $brochureFile */
-                $brochureFile = $form_ress->get('ressourcePicture')->getData();
+                $pictureRessource = $form_ress->get('ressourcePicture')->getData();
 
                 // this condition is needed because the 'brochure' field is not required
                 // so the PDF file must be processed only when a file is uploaded
-                if ($brochureFile) {
-                    $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                if ($pictureRessource) {
+                    $originalFilename = pathinfo($pictureRessource->getClientOriginalName(), PATHINFO_FILENAME);
                     // this is needed to safely include the file name as part of the URL
-                    $newFilename = $originalFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+                    $newFilename = $originalFilename.'-'.uniqid().'.'.$pictureRessource->guessExtension();
 
                     // Move the file to the directory where brochures are stored
                     try {
-                        $brochureFile->move(
+                        $pictureRessource->move(
                             $this->getParameter('picture_ressource_directory'),
                             $newFilename
                         );
@@ -210,31 +209,23 @@ class RessourcesController extends AbstractController
                     $ressource->setRessourcePicture($newFilename);
                 }
 
+                // AJOUT DU USER QUI AJOUTE LA RESSOURCE, OU LA MODIFIE
                 /** @var User $user */
                 $user = $this->getUser();
                 $user->addRessources($ressource);
 
                 $em->persist($ressource);
                 $em->flush();
+
+                $this->addFlash('success', 'Ressource bien ajoutée!' );
+                return $this->redirectToRoute('ressources.index');
             }
-
-
-
-//            if($form_attr->isSubmitted() && $form_attr->isValid()){
-//                $form_attr->handleRequest($request);
-//                $em = $this->getDoctrine()->getManager();
-//                $this->addFlash('success', 'Ressource bien ajoutée!' );
-//                return $this->redirectToRoute('ressources.index');
-//            }
-
         }
-
 
         return $this->render('ressources/new.html.twig',[
             'form_ress'=>$form_ress->createView(),
-//            'form_attr'=>$form_attr->createView()
+            'category'=>$category
         ]);
-
     }
 
     /**

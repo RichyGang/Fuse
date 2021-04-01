@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fuse | Ajout attributs{% endblock %}
+
+{% block body %}
+
+    {{ category.name }}
+    {{ category.mother }}
+
+    <div class="container mt-5 text-center">
+
+        {% for attribute in attributes %}
+            <div class="col-auto">
+                {{ attribute.name }} {% if attribute.unity %}[{{ attribute.unity }}] {% endif %}
+            </div>
+        {% endfor %}
+
+
+        {{ form_start(form_cat_attr) }}
+
+        <div class="row flex">
+            <div class="col-md text-center">{{ form_row(form_cat_attr.name) }}</div>
+            <div class="col-md text-center">{{ form_row(form_cat_attr.unity) }}</div>
+        </div>
+
+        <br>
+
+
+        <input type="submit" name="add_attribute_button" value="Ajouter un attribut" />
+
+        <br>
+        <br>
+        <br>
+
+
+        {{ form_end(form_cat_attr) }}
+
+    </div>
+
+
+{% endblock %}

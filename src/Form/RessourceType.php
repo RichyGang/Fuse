@@ -84,7 +84,7 @@ class RessourceType extends AbstractType
                     'auto_initialize' => false,
                     'label' => $value->getName(),
                     'attr' => array(
-                        'placeholder' => 'remplir l\'attribut',
+                        'placeholder' => $value->getUnity(),
                     )
                 ]);
 

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Gérer les ressources' %}
+{% block title 'Fuse | gérer ressources' %}
 
 {% block body %}
 
@@ -10,7 +10,8 @@
             <thead>
 {#            les entetes du tableau#}
             <tr>
-                <th>Nom ressource</th>
+                <th>Catégorie</th>
+                <th>Caractéristiques</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -19,7 +20,18 @@
 
             {% for ressource in ressources %}
             <tr>
-                <td>{{ ressource.name }}</td>
+
+                <td>
+                    {{ ressource.category }}
+                    {% if ressource.category.mother  %}
+                        ({{ ressource.category.mother }})
+                    {% endif %}
+                </td>
+                <td>
+                    {% for r in ressource.ressourceAttribute %}
+                        {{ r.value }} {{ ressource.category.categoryAttributes[loop.index - 1].unity }}
+                    {% endfor %}
+                </td>
                 <td>
                     <a href="{{ path('admin.ressources.edit', {id: ressource.id}) }}" class="btn btn-secondary">Éditer</a>
 {#                    pour permettre d'avoir un bouton delete qui mene vers la meme route que edit mais pour delete, display c'est pour que ca soit joli#}
@@ -34,7 +46,7 @@
 {#                                pour concatener le nom du token avec l'id de la ressource#}
 {#                            <imput type="hidden" name="token" value="{{ csrf_token('delete' - ressource.id) }}">#}
 {#                            <button class="btn btn-danger">Supprimer</button>#}
-                    </form>
+{#                    </form>#}
                 </td>
             </tr>
             {% endfor %}

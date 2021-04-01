@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvelle ressource{% endblock %}
+{% block title %}Fuse | nouvelle ressource{% endblock %}
 
 {% block body %}
     <div class="container mt-5 text-center">
@@ -10,12 +10,28 @@
         <br>
         <br>
 
-{#        <div class="row flex">#}
-{#            <div class="col-md-4 text-center">{{ form_row(form.parent) }}</div>#}
-{#            <div class="col-md-4 text-center">{{ form_row(form.category) }}</div>#}
-{#            <div class="col-md-4 text-center">{{ form_row(form.name) }}</div>#}
-{#            <div class="col-md-4 text-center">{{ form_row(form.description) }}</div>#}
-{#        </div>#}
+        <div class="row flex">
+            <div class="col-md-4 text-center">{{ form_row(form_ress.category) }}</div>
+{#            {{ dump(form_ress) }}#}
+
+            {% if category != null %}
+                <div class="col-md-4 text-center">
+                {% for categ_attr in category.categoryAttributes %}
+                    {{ form_row(attribute(form_ress, 'ressource_attribute' ~loop.index0 )) }}
+                {% endfor %}
+                </div>
+                <div class="col-md-4 text-center">{{ form_row(form_ress.description) }}</div>
+            {% endif %}
+
+        </div>
+        <br>
+        <br>
+        {% if category != null %}
+        <div class="row">{{ form_row(form_ress.ressourcePicture) }}</div>
+        {% endif %}
+
+        <br>
+        <br>
 
         <input type="submit" name="submit_button" value="BOUM" class="btn btn-dark" />
 

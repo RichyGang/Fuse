@@ -2,33 +2,86 @@
 
 {% block body %}
 
-    <div class="jumbotron text.center">
-        <div class="text-center">
-            <h1>FUSE</h1>
-            <p>Répertoire de ressources et plateforme de transfert.</p>
+    <div class="container">
+        <div class="block-list-item mt-3">
+            <h2>Ressources</h2>
+            <div class="shadow-sm p-3 mb-5 bg-white rounded">
+                {% for r in ressources %}
+                    <div class="row item">
+                        <div class="col-md-2 col-img">
+                            <img class="center" src="/pictures/{{ r.ressourcePicture }}" alt="Card image cap">
+                        </div>
+                            <div class="col-md-2">
+                                <p>
+                                    {% for ra in r.ressourceAttribute %}
+                                        {{ ra }}
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        <div class="col-md-4">
+                            <p>{{ ressources|length }}
+                                # offres (# dans mon champs)
+                                <br>
+                                # demandes (# dans mon champs)
+                            </p>
+
+                        </div>
+                        <div class="col-md-2">Col5</div>
+                        <div class="col-md-2">
+                            <p>
+                                <a href="/admin/ressources" class="btn btn-warning">Éditer</a>
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="block-list-item mt-3">
+            <h2>Propositions</h2>
+            <div class="col">
+                Bonjour
+            </div>
+        </div>
+        <div class="block-list-item mt-3">
+            <h2>Matchs</h2>
+            <div class="col">
+                Bonjour
+            </div>
         </div>
     </div>
 
-    <div class="container">
-        <h2> Les dernieres ressources </h2>
-        <div class="row flex">
-            {% for ressource in ressources %}
-                <div class="col-3">
-                    <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="/pictures/{{ ressource.ressourcePicture }}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                {% for r in ressource.ressourceAttribute %}
-                                    <p> {{ r.value }}{{ ressource.category.categoryAttributes[loop.index - 1].unity }}  </p>
-                                {% endfor %}
-                            </h5>
-{#                       )#}
-                            <p class="card-text">{{ ressource.description }}</p>
-                            <a href="#" class="btn btn-primary">Offrir</a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+{#    <div class="container">#}
+{#        <div class="row">#}
+{#            <div class="col-md-4">#}
+{#                <h1>FUSE</h1>#}
+{#                <p>Répertoire de ressources et plateforme de transfert.</p>#}
+{#            </div>#}
+{#            <div class="col-md-2 offset-md-4">#}
+{#                <button class="btn btn-info">Ajouter une offre ? Demander une ressource ?</button>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <div class="container">#}
+{#        <h2> Les dernieres ressources </h2>#}
+{#        <div class="row flex">#}
+{#            {% for ressource in ressources %}#}
+{#                <div class="col-3">#}
+{#                    <div class="card" style="width: 18rem;">#}
+{#                        <img class="card-img-top" src="/pictures/{{ ressource.ressourcePicture }}" alt="Card image cap">#}
+{#                        <div class="card-body">#}
+{#                            <h5 class="card-title">#}
+{#                                {% for r in ressource.ressourceAttribute %}#}
+{#                                    <p> {{ r.value }}{{ ressource.category.categoryAttributes[loop.index - 1].unity }}  </p>#}
+{#                                {% endfor %}#}
+{#                            </h5>#}
+{#                            <p class="card-text">{{ ressource.description }}</p>#}
+{#                            <a href="#" class="btn btn-primary">Offrir</a>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#    </div>#}
+
 {% endblock %}

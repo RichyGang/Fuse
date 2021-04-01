@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Fuse | éditer catégorie' %}
+
+{% block body %}
+    <div class="container mt-4">
+
+
+        <h1>Éditer la categorie</h1>
+
+    <div class="container">
+        {{ form_start(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.mother) }}
+        <button class="btn-primary mt-4">Boudoum</button>
+        {{ form_end(form) }}
+    </div>
+
+    </div>
+
+{% endblock %}

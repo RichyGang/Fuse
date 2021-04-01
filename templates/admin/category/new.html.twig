@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fuse | nouvelle catégorie{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-5 text-center">
+        <h1>Nouvelle categorie</h1>
+        {{ form_start(form_cat) }}
+
+        <br>
+        <br>
+
+        <div class="row flex">
+            <div class="col-md text-center">{{ form_row(form_cat.mother) }}</div>
+            <div class="col-md text-center">{{ form_row(form_cat.name) }}</div>
+        </div>
+
+        <br>
+        <br>
+
+        <input type="submit" name="new_category_button" value="BOUM" class="btn btn-dark" />
+
+
+
+        <br>
+
+
+        {{ form_end(form_cat) }}
+
+        <br>
+
+        <br>
+        <br>
+
+    </div>
+
+{% endblock %}
